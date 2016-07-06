@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>购物中心</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/swiper.min.css" />
+<link rel="stylesheet" type="text/css" href="css/hot.css">
+</head>
+<body ng-controller='ctr'>
+<div class="box car_box">
+   	 <header>
+      	   <a href="shouye.html" class='back'><img src='img/back.png'></a>
+          <h2>购物中心</h2>
+          <a href="sear.html" class='sear'><img src="img/sear.png"></a>
+      </header>
+       <nav class='shop_nav'>
+        <ul ng-click='Attr()'>
+            <li><a href="#one" data-id='1' data-tit='yifu'>服饰鞋包</a></li>
+            <li><a href="#two" data-id='1' data-tit='home'>家具家居</a></li>
+            <li><a href="#three" data-id='6' data-tit='dian'>数码家电</a></li>
+            <li><a href="#four" data-id='11' data-tit='yao'>药店</a></li>
+            <li><a href="#five" data-id='16' data-tit='hua'>化妆品</a></li>
+        </ul>
+      <div class="bottom"></div>
+      </nav>
+      <div class="hot_main car_main" id='container'>
+        <div>
+        <section id='one'>
+          <dl class='car_dl'>
+             <dt><img src="img/hot_dl.png"></dt>
+             <dd>
+               <p class='name'>昆明南北往汽车租资有限公司</p>
+               <p class='tel'><span class='tel_bg'></span>13108859822</p>
+               <p class='adress'><span class='adress_bg'></span>昆明市呈贡县</p>
+             </dd>
+         </dl>
+      </section>
+      <section id='two'>
+          <dl class='car_dl'>
+             <dt><img src="img/hot_dl.png"></dt>
+             <dd>
+               <p class='name'>昆明南北往汽车租资有限公司</p>
+               <p class='tel'><span class='tel_bg'></span>13108859822</p>
+               <p class='adress'><span class='adress_bg'></span>昆明市呈贡县</p>
+             </dd>
+         </dl>
+      </section>
+      <section id='three'>
+          <dl class='car_dl'>
+             <dt><img src="img/hot_dl.png"></dt>
+             <dd>
+               <p class='name'>昆明南北往汽车租资有限公司</p>
+               <p class='tel'><span class='tel_bg'></span>13108859822</p>
+               <p class='adress'><span class='adress_bg'></span>昆明市呈贡县</p>
+             </dd>
+         </dl>
+      </section>
+      <section id='four'>
+          <dl class='car_dl'>
+             <dt><img src="img/hot_dl.png"></dt>
+             <dd>
+               <p class='name'>昆明南北往汽车租资有限公司</p>
+               <p class='tel'><span class='tel_bg'></span>13108859822</p>
+               <p class='adress'><span class='adress_bg'></span>昆明市呈贡县</p>
+             </dd>
+         </dl>
+      </section>
+      <section id='five'>
+          <dl class='car_dl'>
+             <dt><img src="img/hot_dl.png"></dt>
+             <dd>
+               <p class='name'>昆明南北往汽车租资有限公司</p>
+               <p class='tel'><span class='tel_bg'></span>13108859822</p>
+               <p class='adress'><span class='adress_bg'></span>昆明市呈贡县</p>
+             </dd>
+         </dl>
+      </section>
+    </div>
+    </div>
+</div>
+
+<script type="text/javascript" src='js/setfontsize.js'></script>
+<script type="text/javascript" src='js/zepto.min.js'></script>
+<script type="text/javascript" src='js/iscroll4.js'></script>
+
+<script>
+ /* var myApp=angular.module('myApp',[]);
+    myApp.controller('ctr',['$scope','$http',function($scope,$http){
+        $http.get('data/hot.json')
+              .success(function(e){
+                console.log(e)
+              })
+    }])*/
+  var len=$(".shop_nav>ul>li").length,
+      nav_W=$('.shop_nav').width(),
+      n=4,
+      LiW=nav_W/n,
+      sum=LiW*(n-1);
+   // console.log(LiW*3);
+     // LiW=$(".shop_nav>ul>li").first().width();
+  //console.log(nav_W)
+    $('.shop_nav>ul').width(LiW*len+"px");
+    $('.shop_nav>ul').on("click","a",function(e){
+        e.preventDefault();
+        var n=$(this).data('id');
+        var L=$(this).parent().offset().left;
+      //  console.log(nav_W-L)
+        if(nav_W-L>=sum){
+          $('.shop_nav>ul').animate({
+            "left":-L+"px"
+          })
+        }
+         xian(n);
+    })
+   $("nav a").on("click",function(e){
+            e.preventDefault(); 
+            var attr=$(this).attr("href"),
+              n=$(this).data('id');
+            console.log(attr);
+            console.log(n)
+            $("section").hide();
+            $("section").css({"transform":"translate3d(100%,0,0)"})
+            $(attr).show();
+            $(attr).css({"transform":"translate3d(0,0,0)"})
+           
+        })
+       xian(1);
+      function xian(n){
+        $(".bottom").css({
+          'left':n*5+'%'
+        })
+      }
+     showPage("yifu","#one");
+      $('.shop_nav a').on('click',function(){
+        var json=$(this).data('tit'),
+            All=$(this).attr('href');
+            showPage(json,All);
+      })
+function showPage(json,All){
+      $.ajax({
+            url:"data/hot.json",
+            type:"get",
+            success:function(e){
+              console.log(e)
+              $.each(e,function(key,val){
+                console.log(key)
+                  if(key==json){
+                    var str='';
+                    console.log(val)
+                $.each(val,function(i,n){
+                  console.log(i)
+                  console.log(n)
+                       str+="<a href='more_list.html?"+json+"="+n.id+"'><dl class='car_dl'>"+
+                       "<dt><img src='img/"+n.pic+"'></dt>"+
+                      " <dd>"+
+                        " <p class='name'>"+n.title+"</p>"+
+                        " <p class='tel'><span class='tel_bg'></span>"+n.bj+"</p>"+
+                         "<p class='adress'><span class='adress_bg'></span>"+n.bj2+"</p>"+
+                       "</dd>"+
+                   "</dl></a>"
+                })
+                 $(All).html(str);
+              }
+                   
+                    menuPage.refresh();
+              })
+            }
+          })
+}
+  var menuPage=new iScroll("container",{
+      onBeforeScrollStart:function(e){
+        var tagName=e.target.nodeName.toLowerCase();
+        if(tagName!="input" && tagName!="select" && tagName!="textarea" && tagName!="a"){
+          e.preventDefault(); 
+        }   
+      }
+})
+</script>
+</body>
+</html>

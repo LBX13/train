@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>热门景点详情</title>
+</head>
+<body ng-controller='ctr'>
+	<div class="hot_xiangqing">
+		<header class="header">
+			<a href="hot.html" class="left1"></a>
+			<h1>详情</h1>
+			<a href="" class="right2"></a>
+			<a href="" class="right3"></a>
+		</header>
+		<div class="se" id="se" style="background:#fff">
+				<div class="det">
+					<h1></h1>
+					<small></small>
+					<span>热门</span>
+					<div class="con"></div>
+					<!-- <p>
+						　　今年端午节假期我市旅游迎来“井喷式”增长，小长假期间，我市共接待游客344.59万人次，旅游业总收入11.97亿元。端午假日期间，我市未发生一起旅游安全事故和重大旅游投诉
+					</p>
+					<p>
+						　　今年端午节假期我市旅游迎来“井喷式”增长，小长假期间，我市共接待游客344.59万人次，旅游业总收入11.97亿元。端午假日期间，我市未发生一起旅游安全事故和重大旅游投诉今年端午节假期我市旅游迎来“井喷式”增长，小长假期间，我市共接待游客344.59万人次，旅游业总收入11.97亿元。端午假日期间，我市未发生一起旅游安全事故和重大旅游投诉
+					</p>
+					<p>
+						　　今年端午节假期我市旅游迎来“井喷式”增长，小长假期间，我市共接待游客344.59万人次，旅游业总收入11.97亿元。端午假日期间，我市未发生一起旅游安全事故和重大旅游投诉今年端午节假期我市旅游迎来“井喷式”增长，小长假期间，我市共接待游客344.59万人次，旅游业总收入11.97亿元。端午假日期间，我市未发生一起旅游安全事故和重大旅游投诉今年端午节假期我市旅游迎来“井喷式”增长，小长假期间，我市共接待游客344.59万人次，旅游业总收入11.97亿元。端午假日期间，我市未发生一起旅游安全事故和重大旅游投诉
+					</p>
+					<p>
+						今年端午节假期我市旅游迎来“井喷式”增长，小长假期间，我市共接待游客344.59万人次，旅游业总收入11.97亿元。端午假日期间，我市未发生一起旅游安全事故和重大旅游投诉今年端午节假期我市旅游迎来“井喷式”增长，小长假期间，我市共接待游客344.59万人次，旅游业总收入11.97亿元。端午假日期间，我市未发生一起旅游安全事故和重大旅游投诉
+					</p> -->
+				</div>	
+		</div>
+		<footer class="footer1">
+			<form>
+				<input type="text" placeholder="说点什么吧">
+				<label>发表</label>
+			</form>
+		</footer>
+	</div>
+<script src="js/setfontsize.js"></script>
+<script type="text/javascript" src='js/angular.js'></script>
+<script type="text/javascript" src='js/zepto.min.js'></script> 
+<script>
+	
+</script>
+<script>
+	var loca=(window.location.href).split('?')[1];
+	var arr=loca.split('=');
+  var myApp=angular.module('myApp',[]);
+    myApp.controller('ctr',['$scope','$http',function($scope,$http){
+        $http.get('data/xiangqing.json')
+              .success(function(e){
+              	$.each(e[arr[0]],function(n,ele){
+              		if(n==arr[1]-1){
+              			$scope.info=ele;
+              			$('.det>h1').text(ele.tit);
+              			$('.det>small').text(ele.time);
+              			//$('.det>p').text(ele.xx)
+              			var con=(ele.xx).split('&');
+              				var html="";
+              			for(var i=0;i<con.length;i++){
+              				html+="<p>"+con[i]+"</p>";
+              			}
+              			$('.det>.con').html(html);
+              		}
+              	})
+              		
+              })
+    }])
+</script>
+</body>
+</html>

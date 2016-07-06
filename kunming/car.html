@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>旅游租车</title>
+<script type="text/javascript" src='js/zepto.min.js'></script>
+
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/swiper.min.css" />
+<link rel="stylesheet" type="text/css" href="css/hot.css">
+
+</head>
+<body>
+   <div class="box car_box">
+      <header>
+           <a href="shouye.html" class='back'><img src='img/back.png'></a>
+          <h2>旅游租车</h2>
+          <a href="sear.html" class='sear'><img src="img/sear.png"></a>
+      </header>
+      <div class="hot_main car_main" id='container'>
+      <div>
+         <dl class='car_dl'>
+           <dt><img src="img/hot_dl.png"></dt>
+           <dd>
+             <p class='name'>昆明南北往汽车租资有限公司</p>
+             <p class='tel'><span class='tel_bg'></span>13108859822</p>
+             <p class='adress'><span class='adress_bg'></span>昆明市呈贡县</p>
+           </dd>
+         </dl>
+      </div>
+    </div>
+</div> 
+<script type="text/javascript" src='js/setfontsize.js'></script>
+<script src='js/handlebars-v4.0.5.js'></script>
+<script type="text/javascript" src='js/iscroll4.js'></script>
+<script id="moban" type="text/x-handlebars-template">
+    {{#each this}}
+      <a href='more_list.html?car={{id}}'>
+         <dl class='car_dl'>
+           <dt><img src="img/{{pic}}"></dt>
+           <dd>
+             <p class='name'>{{word}}</p>
+             <p class='tel'><span class='tel_bg'></span>{{bj}}</p>
+             <p class='adress'><span class='adress_bg'></span>{{bj2}}</p>
+           </dd>
+         </dl>
+         </a>
+    {{/each}}
+</script>
+<script>
+    $.get('data/hot.json',function(e){
+         var ohtml=$('#moban').html();
+          moban=Handlebars.compile(ohtml);
+          $('.car_main>div').html(moban(e.car));
+          menuPage.refresh();
+    })
+     var menuPage=new iScroll("container",{
+      onBeforeScrollStart:function(e){
+        var tagName=e.target.nodeName.toLowerCase();
+        if(tagName!="input" && tagName!="select" && tagName!="textarea" && tagName!="a"){
+          e.preventDefault(); 
+        }   
+      }
+})   
+ 
+</script>
+</body>
+</html>

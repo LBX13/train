@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+//.sort()方法默认是按字符来排序的，所以在对数字型数组排序时，不可想当然的以为会按数字大小排序！
+	var arr=[2,3,1,4,67,2,57,78,32,32];
+		arr1=arr.sort();
+		arr1.sort(function(a,b){
+			return a>b?1:-1//从小到大排列
+		})
+
+		console.log(arr1);
+	
+</script>
+
+</body>
+</html>

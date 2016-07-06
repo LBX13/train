@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>饮食美食</title>
+</head>
+<body>
+	<div class="eat">
+		<header class="header">
+			<a href="" class="left1"></a>
+			<h1>餐饮美食</h1>
+			<a href="" class="right1"></a>
+		</header>
+		<div class="nav">
+			<ul class="list">
+				<li class="on"><a href="#m1">西餐</a></li>
+				<li><a href="#m2">火锅</a></li>
+				<li><a href="#m3">面包甜点</a></li>
+				<li><a href="#m4">小吃</a></li>
+			</ul>
+		</div>
+		<div class="se" id="se" style="background:#fff">
+			<div>
+				<section id="m1" class="m1">
+					<!-- <dl>
+						<dt><img src="img/eat_1.png"></dt>
+						<dd>
+							<p class="sell">季季红火锅(南疆宾馆店)</p>
+							<p class="tel">08716363318</p>
+							<p class="area">五华区小西门南疆宾馆百汇市场四楼</p>
+						</dd>					
+					</dl> -->
+				</section>
+				<section id="m2" class="m1">
+					<!-- <dl>
+						<dt><img src="img/eat_1.png"></dt>
+						<dd>
+							<p class="sell">季季红火锅(南疆宾馆店)</p>
+							<p class="tel">08716363318</p>
+							<p class="area">五华区小西门南疆宾馆百汇市场四楼</p>
+						</dd>					
+					</dl> -->
+				</section>
+				<section id="m3" class="m1"></section>	
+			</div>
+		</div>
+	</div>
+	<script src="js/handlebars-v4.0.5.js"></script>
+	<script id="moban" type="text-x-handlebars-template">
+		{{#each this}}
+			<dl>
+				<dt><img src="img/{{pic}}"></dt>
+				<dd>
+					<p class="sell">{{word}}</p>
+					<p class="tel">{{bj}}</p>
+					<p class="area">{{bj2}}</p>
+				</dd>
+			</dl>		
+		{{/each}}
+	</script>
+
+	<script src="js/jq.js"></script>
+	<script src="js/iscroll5.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/setfontsize.js"></script>
+	<script>
+	   /* $.ajax({
+	    	url:"eat.json",
+	    	type:"get",
+	    	success:function(e){
+	    		console.log(e);
+	    		var html="";
+	    		$.each(e,function(i,v){
+	    			$.each(v,function(index,val){
+	    				html+='<dl>'+
+							'<dt><img src="img/'+val.pic+'"></dt>'+
+							'<dd>'+
+								'<p class="sell">'+val.word+'</p>'+
+								'<p class="tel">'+val.bj+'</p>'+
+								'<p class="area">'+val.bj2+'</p>'+
+							'</dd>'+
+						'</dl>';
+	    			})			
+	    		})
+	    		$(".m1").html(html);
+	    		//myPage.refresh();		
+	    	}
+	    })*/
+
+		$(function(){
+			$.getJSON("data/eat.json",function(data){
+				console.log(data);
+				if(data.success==1){
+					var html=$("#moban").html(),
+					moban=Handlebars.compile(html);
+					$("#m1").html(moban(data.xican));
+				}
+			})
+		})
+		$(function(){
+			$.getJSON("data/eat.json",function(data){
+				console.log(data);
+				if(data.success==1){
+					var html=$("#moban").html(),
+					moban=Handlebars.compile(html);
+					$("#m2").html(moban(data.huoguo));
+				}
+			})
+		})
+		$(function(){
+			$.getJSON("data/eat.json",function(data){
+				console.log(data);
+				if(data.success==1){
+					var html=$("#moban").html(),
+					moban=Handlebars.compile(html);
+					$("#m3").html(moban(data.cake));
+				}
+			})
+		})
+
+	    $(".list li").on("click","a",function(){
+	    	//e.preventDefault();
+	    	var _href=$(this).attr("href");
+			console.log(_href);
+			$(this).parents("li").addClass("on").siblings().removeClass("on");
+           	 	$(_href).css({
+            		"-webkit-transform":"translate3d(0,0,0)"
+            	}).siblings().css({
+            		"-webkit-transform":"translate3d(100%,0,0)"
+            })
+	    })
+	</script>
+</body>
+</html>

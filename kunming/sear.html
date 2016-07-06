@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>搜索</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/swiper.min.css" />
+<link rel="stylesheet" type="text/css" href="css/hot.css">
+<style>
+dl{
+	width: 100%;
+	height: auto;
+	display:-webkit-flex;
+}
+</style>
+</head>
+<body>
+
+<div class="box car_box sear_box">
+   	 <header>
+           <a href="#" class='back'><img src='img/back.png'></a>
+      	 <p><input type='text' placeholder='图书' class='Searput'> <a href="#" class='sear'><img src="img/sear.png"></a></p>
+      </header>
+      <div class="hot_main car_main" id='container'>
+      <div>
+      			
+      </div>
+    </div>
+</div>
+<script type="text/javascript" src='js/setfontsize.js'></script>
+<script type="text/javascript" src='js/zepto.min.js'></script>
+<script type="text/javascript" src='js/iscroll4.js'></script>
+<script type="text/javascript" src='js/handlebars-v4.0.5.js'></script>
+<script id="moban" type="text/x-handlebars-template">
+     {{#each this.books}}
+     <a href='{{url}}'>
+        	<dl>
+        		<dt><img src='{{image}}'</dt>
+        		<dd>
+        			<p>{{alt_title}}</p>
+        			<p>{{price}}</p>
+        			<p>{{author}}</p>
+        			<p>{{author_intro}}</p>
+        		</dd>
+        	</dl>
+    	</a>
+       {{/each}}
+</script>
+<script id="moban1" type="text/x-handlebars-template">
+        <p>{{author}}</p>
+        <p>{{author_intro}}</p>
+        <p>{{catalog}}</p>
+</script>
+<script>
+$(function(){	
+	$('.sear').on('click',function(){
+	var t=$(".Searput").val();
+			$.ajax({
+			url:"https://api.douban.com/v2/book/search?q="+t,
+			type:"get",
+			dataType:"jsonp",
+			success:function(e){
+				console.log(e);
+				var ohtml=$('#moban').html();
+				moban=Handlebars.compile(ohtml);
+				$('.car_main>div').html(moban(e));
+        $(".car_main>div").on('click',"a",function(e){
+            e.preventDefault(); 
+            var attr=$(this).attr('href');
+            //console.log(attr)
+            $.ajax({
+              url:attr,
+              type:"get",
+              dataType:"jsonp",
+              success:function(data){
+                console.log(data);
+                var ohtml1=$('#moban1').html();
+               moban1=Handlebars.compile(ohtml1);
+                $('.car_main>div').html(moban1(data));
+              }
+          })
+        })
+			}
+		})	
+	})
+  $('.back').on('click',function(){
+      history.go(-1);
+  })
+var menuPage=new iScroll("container",{
+      onBeforeScrollStart:function(e){
+        var tagName=e.target.nodeName.toLowerCase();
+        if(tagName!="input" && tagName!="select" && tagName!="textarea" && tagName!="a"){
+          e.preventDefault(); 
+        }   
+      }
+})
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='myApp'>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>旅游热点</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/swiper.min.css" />
+<link rel="stylesheet" type="text/css" href="css/hot.css">
+</head>
+
+<body ng-controller='ctr'>
+<div class="box car_box">
+     <header>
+           <a href="#" class='back'><img src='img/back.png'></a>
+          <h2>游记攻略</h2>
+          <a href="sear.html" class='sear'><img src="img/sear.png"></a>
+      </header>
+       <nav>
+        <ul>
+          <li><a href="#one" data-id='1'>热门游记</a></li>
+          <li><a href="#two" data-id='6'>最新发表</a></li>
+        </ul>
+      <div class="bottom"></div>
+      </nav>
+      <div class="hot_main" id='container'>
+      <div>
+      <section id='one'>
+            <div class="hot_content car_main">
+            <dl class='car_dl' ng-repeat='x in info' ng-cloak>
+             <dt><img src="img/{{x.pic}}"></dt>
+             <dd>
+               <p class='name'>{{x.wordP}}</p>
+                <time class='L_time'>2016-06-02 10:06</time>
+             </dd>
+          </dl>
+        </div>
+      </section>
+      <section id='two'>
+             <div class="hot_content car_main">
+            <dl class='car_dl' ng-repeat='x in L_time'>
+               <dt><img src="img/{{x.pic}}"></dt>
+                 <dd>
+                 <p class='name'>{{x.wordP}}</p>
+                <time class='L_time'>2016-06-02 10:06</time>
+             </dd>
+          </dl>
+        </div>
+      </section>
+      </div>
+    </div>
+</div>
+<script type="text/javascript" src='js/setfontsize.js'></script>
+<script type="text/javascript" src='js/swiper.min.js'></script>
+<script type="text/javascript" src='js/zepto.min.js'></script> 
+<script type="text/javascript" src='js/handlebars-v4.0.5.js'></script>
+<script type="text/javascript" src='js/iscroll4.js'></script>
+<script type="text/javascript" src='js/angular.js'></script>
+<script>
+  var myApp=angular.module('myApp',[]);
+    myApp.controller('ctr',['$scope','$http',function($scope,$http){
+        $scope.info='';
+         $scope.L_time='';
+        $http.get('data/hot.json')
+              .success(function(e){
+                  console.log(e.lv)
+                  $scope.info=e.lv;
+                   $scope.L_time=e.lv1;
+              })
+    }])
+        $("nav a").on("click",function(e){
+            e.preventDefault(); 
+            var attr=$(this).attr("href"),
+              n=$(this).data('id');
+            console.log(attr);
+            console.log(n)
+            $("section").hide();
+            $("section").css({"transform":"translate3d(100%,0,0)"})
+            $(attr).show();
+            $(attr).css({"transform":"translate3d(0,0,0)"})
+            xian(n);
+        })
+        xian(1);
+      function xian(n){
+        $(".bottom").css({
+          'left':n*10+'%'
+        })
+      }
+
+      $('.back').on('click',function(){
+          history.go(-1)
+      })
+var menuPage=new iScroll("container",{
+      onBeforeScrollStart:function(e){
+        var tagName=e.target.nodeName.toLowerCase();
+        if(tagName!="input" && tagName!="select" && tagName!="textarea" && tagName!="a"){
+          e.preventDefault(); 
+        }   
+      }
+})
+  </script> 
+</body>
+</html>

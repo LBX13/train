@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>搜索</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/swiper.min.css" />
+<link rel="stylesheet" type="text/css" href="css/hot.css">
+</head>
+<body>
+<div class="box sear_box" ng-controller='str'>
+   	 <header>
+      	   <a href="more.html" class='back'><img src='img/back.png'></a>
+          <h2>搜索</h2>
+      </header>
+      <nav class='sear_nav'>
+          <input type="text" class='sear_ip' placeholder='请输入关键字' ng-model='v'>
+      </nav>
+              <div class="bg"></div>
+      <div class="hot_main car_main end_sear" id='container'>
+          <div class='down'>
+              <p style='line-height:40px'>
+                  请选择栏目
+              </p>
+              <ul class="tit">
+             	 	<li class='all'>全部</li>
+                   <li class="xia one">　→　</li>   
+                  <li id='new' class='one two'></li>
+                   <li id='lis' class='one	three'></li>
+              </ul>
+              <div class="na"></div>
+              <div id='all'>
+              		<!--  <li>全部<p><input type="radio" id='a'><label for="a" class='che_bg'></label></p></li>  -->          
+      		    </div>
+          </div>
+          <div class='showlist' style='display:none'>
+          	<dl class="car_dl" ng-repeat='x in info | filter:v '>
+	           <dt><img src="img/{{x.pic}}"></dt>
+	           <dd>
+	             <p class="name">{{x.word}}</p>
+	             <p class="adress"><span class="adress_bg"></span>{{x.bj2}}</p>
+	           </dd>
+         	</dl>
+          </div>
+    </div>
+</div>
+
+<script type="text/javascript" src='js/setfontsize.js'></script>
+<script type="text/javascript" src='js/zepto.min.js'></script>
+<script type="text/javascript" src='js/iscroll4.js'></script>
+<script type="text/javascript" src='js/handlebars-v4.0.5.js'></script>
+<script id="moban" type="text/x-handlebars-template">
+	{{#each this.all}}
+		<li>{{tit}}<p><input type="radio" name='aa' id='{{z}}'><label for="{{z}}" class='che_bg'></label></p><p>{{Tix}}</p></li>
+	{{/each}}
+</script>
+<script type="text/javascript" src='js/end_sear.js'></script>
+<script src='js/angular.js'></script>
+<script>
+	var myApp=angular.module("myApp",[]);
+		myApp.controller('str',["$scope","$http",function($scope,$http){
+			$scope.v="";
+      $scope.info=''
+			$http.get("data/sear.json")
+				.success(function(e){
+          $scope.info=e.data;
+				})
+		}])
+       var  input=$(this).val();
+     $('.sear_ip').on("focus",function(){
+        $('.down').hide();
+     })
+     $('.sear_ip').on("blur",function(){
+          if(input==""){
+            $('.down').show();
+          }
+     })
+    $('.sear_ip').on("keyup",function(){
+       if(input==""){
+          $('.showlist').hide()
+       }else{
+          $('.showlist').show()
+       }
+    })
+</script>
+</body>
+</html>

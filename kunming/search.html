@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"> 
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection"> 
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style1.css" />
+	<title>搜索</title>
+</head>
+<body  ng-controller="ctr">
+	<div class="wrap">
+		<header class="header">
+			<a href="more.html" class="back"><i class="fa fa-arrow-left"></i></a>
+			<h2>搜索</h2>
+		</header>
+		<section class="section">
+			<div class="searchBtn">
+				<input type="text" placeholder="请输入搜索关键字" ng-model="v">
+				<button>搜索</button>
+			</div>
+			<div class="searchList">
+				<ul>
+					<li ng-repeat="x in info | filter:v">
+						<span>{{x.span}}</span>
+						<a href="#">{{x.a}}</a>
+						<b>{{x.b}}</b>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+	<script src="js/zepto.min.js"></script>
+	<script src="js/iscroll4.js"></script>
+	<script src="js/setfontsize.js"></script>	
+	<script src="js/angular.min.js"></script>
+	<script>
+	var myApp=angular.module("myApp",[]);
+    myApp.controller('ctr',['$scope',function($scope) {		
+		  $scope.info=[
+			  {
+			    span:"1",
+				 a:"1",
+				 b:"23"
+			  },
+			  {
+			    span:"2",
+				 a:"昆明",
+				 b:"23"
+			  },
+			  {
+			    span:"3",
+				 a:"云南",
+				 b:"24"
+			  },
+			  {
+			    span:"4",
+				 a:"星河",
+				 b:"33"
+			  },
+			  {
+			    span:"5",
+				 a:"花",
+				 b:"20"
+			  },
+			  {
+			    span:"6",
+				 a:"园",
+				 b:"45"
+			  },
+			 {
+			    span:"7",
+				 a:"石",
+				 b:"53"
+			  },
+			  {
+			    span:"8",
+				 a:"大",
+				 b:"63"
+			  },
+			  {
+			    span:"9",
+				 a:"昆明",
+				 b:"43"
+			  },
+			  {
+			    span:"10",
+				 a:"山西",
+				 b:"23"
+			  }
+		  ];
+	}]);
+
+</script>
+</body>
+</html>

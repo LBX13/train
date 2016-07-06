@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection"> 
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style1.css" />
+	<link rel="stylesheet" href="css/style.css">
+	<title>更多</title>
+<style type="text/css">
+	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Pse3HxcGYvtGPecw0b0UcvB8sLigG6w7"></script>
+</head>
+<body>
+	<div class="wrap">
+		<header class="header">
+			<h2>地图</h2>
+		</header>
+			<div id="allmap"></div>
+	<footer class="footer">
+			<ul>
+				<li><a href="shouye.html"><img src="img/footer_1.png"></a><br><small>首页</small></li>
+				<li><a href="map.html"><img src="img/footer_2.png"></a><br><small>地图</small></li>
+				<li><a href="hui.html"><img src="img/footer_3.png"></a><br><small>会员</small></li>
+				<li><a href="more.html"><img src="img/footer_4.png"></a><br><small>更多</small></li>
+			</ul>
+		</footer>
+	</div>
+	<script src="js/zepto.min.js"></script>
+	<script src="js/iscroll4.js"></script>
+	<script src="js/setfontsize.js"></script>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+	map.setDefaultCursor("url('bird.cur')");   //设置地图默认的鼠标指针样式
+</script>
+</body>
+</html>

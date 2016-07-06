@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"> 
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection"> 
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style1.css" />
+	<title>关于我们</title>
+</head>
+<body>
+	<div class="wrap">
+		<header class="header">
+			<a href="more.html" class="back"><i class="fa fa-arrow-left"></i></a>
+			<h2>关于我们</h2>
+		</header>
+		<section class="section">
+			<div class="aboutCon">
+				<div class="aboutBtn">
+					<h2>关于我们</h2>
+				</div>
+				<div class="nei">
+					
+				</div>
+			</div>
+		</section>
+	</div>
+	<script src="js/zepto.min.js"></script>
+	<script src="js/iscroll4.js"></script>
+	<script src="js/setfontsize.js"></script>
+	<script>
+		init();
+		function init(){
+			var str = "";
+			$.ajax({
+				url:"about.json",
+				type:"get",
+				dataType:"json",
+				async:true,
+				success:function(data){
+					//console.log(data);
+					$.each(data.about_list,function(i,v){
+						str += '<p>'+v.paragraph_1+
+						'</p>'
+					})
+					$(".nei").html(str);
+				},
+				error:function(){
+					alert("数据加载失败");
+				}
+			})
+		}
+	</script>
+</body>
+</html>

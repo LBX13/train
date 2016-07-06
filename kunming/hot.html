@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>旅游热点</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/swiper.min.css" />
+<link rel="stylesheet" type="text/css" href="css/hot.css">
+</head>
+
+<body>
+<div class="box">
+   	 <header>
+      	   <a href="shouye.html" class='back'><img src='img/back.png'></a>
+          <h2>旅游热点</h2>
+      </header>
+       <nav>
+      	<ul>
+      		<li><a href="#one" data-id='1'>最新动态</a></li>
+      		<li><a href="#two" data-id='6'>专题报道</a></li>
+      	</ul>
+      <div class="bottom"></div>
+      </nav>
+      <div class="hot_main" id='container'>
+      <div>
+    	<section id='one'>
+    	<div class="banner">
+						<div class="swiper-container">
+						    <div class="swiper-wrapper">
+						        <div class="swiper-slide"><img src="img/hot_banner.png" alt="" /></div>
+						        <div class="swiper-slide"><img src="img/hot_banner.png" alt="" /></div>
+						        <div class="swiper-slide"><img src="img/hot_banner.png" alt="" /></div>
+						    </div>
+	   						<!-- 如果需要分页器 -->
+	   						<div class="swiper-pagination"></div>
+	   						 <!-- 如果需要导航按钮 -->
+						    <!--<div class="swiper-button-prev"></div>
+						    <div class="swiper-button-next"></div>-->
+	    					<!-- 如果需要滚动条 -->
+	    					<!--<div class="swiper-scrollbar"></div>-->
+						</div>
+				</div>
+            <div class="hot_content">
+              <ul class='hot_ul'id='hot_new'>
+                <li><a href="#">端午小长假西安旅游页收入12亿元</a><br>
+                    <time class='time'>2016-06-12 08:58:20</time>
+                </li>
+              </ul>
+            </div>
+			</section>
+			<section id='two'>
+				 <ul class='hot_ul' id="hot_news">
+                <li><a href="#">端午小长假西安旅游页收入12亿元</a><br>
+                    <time class='time'>2016-06-12 08:58:20</time>
+                </li>
+              </ul>
+			</section>
+      </div>
+    </div>
+</div>
+<script type="text/javascript" src='js/setfontsize.js'></script>
+<script type="text/javascript" src='js/swiper.min.js'></script>
+<script type="text/javascript" src='js/zepto.min.js'></script> 
+<script type="text/javascript" src='js/handlebars-v4.0.5.js'></script>
+<script type="text/javascript" src='js/iscroll4.js'></script>
+<script id="moban" type="text/x-handlebars-template">
+    {{#each this.hot}}
+        <li><a href="det_1.html?hot={{id}}">{{tit}}</a><br>
+            <time class='time'>{{time}}</time>
+        </li>
+    {{/each}}
+</script>
+<script id="moban1" type="text/x-handlebars-template">
+    {{#each this.hot_news}}
+        <li><a href="det_1.html?hot_news={{id}}">{{tit}}</a><br>
+            <time class='time'>{{time}}</time>
+        </li>
+    {{/each}}
+</script>
+  <script>
+    $(document).ready(function(){
+  $('.loading').fadeOut();  
+});
+  		  var mySwiper = new Swiper ('.swiper-container', {
+			    loop: true,
+			    // 如果需要分页器
+			    pagination: '.swiper-pagination',
+			    // 如果需要前进后退按钮
+			    /*nextButton: '.swiper-button-next',
+			    prevButton: '.swiper-button-prev',*/
+			    // 如果需要滚动条
+			   /* scrollbar: '.swiper-scrollbar',*/
+			  })  
+  		  $("nav a").on("click",function(e){
+  		  		e.preventDefault();	
+  		  		var attr=$(this).attr("href"),
+              n=$(this).data('id');
+  		  		console.log(attr);
+            console.log(n)
+            $("section").hide();
+  		  		$("section").css({"transform":"translate3d(100%,0,0)"})
+            $(attr).show();
+  		  		$(attr).css({"transform":"translate3d(0,0,0)"})
+            xian(n);
+  		  })
+        xian(1);
+      function xian(n){
+        $(".bottom").css({
+          'left':n*10+'%'
+        })
+      }
+      //数据渲染
+      $.get("data/hot.json",function(e){
+        // console.log(e);
+         var ohtml=$('#moban').html(),ohtml1=$('#moban1').html();
+          //注册一个Handlebars模版，通过id找到某一个模版，获取模版的html框架
+         moban=Handlebars.compile(ohtml),moban1=Handlebars.compile(ohtml1);
+         $('#hot_new').html(moban(e));
+          $('#hot_news').html(moban1(e));
+          menuPage.refresh();
+      })
+     /* $('.back').on('click',function(){
+          history.go(-1)
+      })*/
+var menuPage=new iScroll("container",{
+      onBeforeScrollStart:function(e){
+        var tagName=e.target.nodeName.toLowerCase();
+        if(tagName!="input" && tagName!="select" && tagName!="textarea" && tagName!="a"){
+          e.preventDefault(); 
+        }   
+      }
+})
+  </script>	
+</body>
+</html>
